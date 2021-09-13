@@ -1,0 +1,54 @@
+version: "3"
+
+services:
+  frontend:
+    build: frontend
+    ports:
+      - 11000:3000
+    restart: always
+    depends_on:
+      - master
+    networks:
+      - defaults
+
+  master:
+    build: master
+    ports:
+      - 10000:5000
+    restart: always
+    networks:
+      - default
+
+  node-1:
+    build: node
+    ports:
+      - 10001:5000
+    environment:
+      PORT_ID: ESLCG001
+    restart: always
+    networks:
+      - default
+
+  node-2:
+    build: node
+    ports:
+      - 10002:5000
+    environment:
+      PORT_ID: NOAHM001
+    restart: always
+    networks:
+      - default
+
+  node-3:
+    build: node
+    ports:
+      - 10003:5000
+    environment:
+      PORT_ID: JPABA001
+    restart: always
+    networks:
+      - default
+
+
+networks:
+  default:e
