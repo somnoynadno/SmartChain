@@ -4,12 +4,12 @@ services:
   frontend:
     build: frontend
     ports:
-      - 11000:3000
+      - 12345:3000
     restart: always
     depends_on:
       - master
     networks:
-      - defaults
+      - default
 
   master:
     build: master
@@ -51,4 +51,4 @@ services:
 
 
 networks:
-  default:e
+    default:
