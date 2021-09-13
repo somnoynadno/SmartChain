@@ -43,7 +43,7 @@ def register_node():
 
         for node in nodes:
             requests.post(f"{node['address']}/nodes/register", json={"nodes": nodes})
-            requests.get(f"{node['address']}/nodes/resolve")
+            requests.get(f"{node['address']}/nodes/resolve")  # idk why am I doing it
 
     return {"status": "OK"}, 200
 

@@ -20,6 +20,9 @@ class Blockchain:
 
     @property
     def serialized_chain(self) -> []:
+        """
+        Returns ready-to-transfer chain of blocks
+        """
         sc = []
         for block in self.chain:
             new_block = {
@@ -34,6 +37,9 @@ class Blockchain:
         return sc
 
     def execute_all(self):
+        """
+        Runs every committed contract in blockchain
+        """
         for block in self.chain:
             for contract in block['transactions']:
                 try:
@@ -90,7 +96,6 @@ class Blockchain:
 
         :return: True if our chain was replaced, False if not
         """
-
         neighbours = self.nodes
         new_chain = None
 
@@ -112,6 +117,8 @@ class Blockchain:
 
         # Replace our chain if we discovered a new, valid chain longer than ours
         if new_chain:
+            # We will rebuild all history of port balance change after next mining
+            # So, nodes must be completely reset to default state
             self.nodes = [Port(n.id, n.name, n.address) for n in self.nodes]
 
             self.chain = []
@@ -126,6 +133,8 @@ class Blockchain:
                         if node.id == c['from_address']:
                             port_from = node
 
+                    # I sure do hope that port_to and port_from exist
+                    # Otherwise, the whole operation is going to crush somewhere
                     contract = SmartContract(port_from, port_to, c['cost'], c['uuid'], c['timestamp'], c['is_done'])
                     new_transactions.append(contract)
 
@@ -185,6 +194,7 @@ class Blockchain:
         """
         sb = []
         for contract in block['transactions']:
+            # It can be our stored or external (serialized one) blockchain
             if type(contract) == SmartContract:
                 sb.append(contract.serialize())
             else:

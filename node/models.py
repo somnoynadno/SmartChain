@@ -45,9 +45,6 @@ class SmartContract:
 
     def execute(self, to_address: str):
         """Interface to run a contract specification."""
-        # if self.port_to.id != to_address:
-        #     raise SmartContractException("forbidden operation")
-
         if self.is_done:
             raise SmartContractException("already done")
 

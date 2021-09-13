@@ -102,7 +102,7 @@ def is_contract_done(id):
 @cross_origin()
 @app.route('/contract/<id>/export_oracle', methods=['POST'])
 def export_oracle(id):
-    oracles.add(id)
+    oracles.add(id)  # the power of simplicity
     return {"status": "OK"}, 200
 
 
